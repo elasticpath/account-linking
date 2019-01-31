@@ -69,7 +69,7 @@ class AuthPage extends React.Component {
     });
 
     loginRegistered(email, password).then((response) => {
-      if (response && response !== 400 && response !== 401) {
+      if (response.status >= 200 && response.status < 300) {
         this.setState({
           failedLogin: '',
           succeededLogin: 'You successfully logged in!',
@@ -78,9 +78,15 @@ class AuthPage extends React.Component {
         setTimeout(() => {
           window.location = `${redirectUri}#state=${authState}&access_token=${response}&token_type=Bearer`;
         }, 3000);
-      } else {
+      } else if (response.status === 400 || response.status === 401) {
         this.setState({
           failedLogin: 'The email address or the password is incorrect',
+          succeededLogin: '',
+          isLogging: false,
+        });
+      } else {
+        this.setState({
+          failedLogin: 'An unexpected error occurred',
           succeededLogin: '',
           isLogging: false,
         });
