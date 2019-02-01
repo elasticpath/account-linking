@@ -22,7 +22,7 @@
 import AlexaResponder from './responders/alexa';
 
 const responders = [
-  new AlexaResponder(),
+  AlexaResponder,
 ];
 
 export default function findResponder(params) {

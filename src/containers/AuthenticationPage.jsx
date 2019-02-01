@@ -97,7 +97,12 @@ class AuthPage extends React.Component {
   }
 
   render() {
-    const { isLogging, failedLogin, succeededLogin } = this.state;
+    const {
+      isLogging,
+      failedLogin,
+      succeededLogin,
+      responder,
+    } = this.state;
     return (
       <div className="col-md-12 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
         <div className="facebook-auth-form">
@@ -118,11 +123,20 @@ class AuthPage extends React.Component {
               </div>
               <button type="submit" className="btn btn-primary" onClick={this.login}>Login</button>
               <div className="panel margin-top-30">
-                <div className={isLogging ? 'display-block' : 'display-none'}>
-                  <h1 className="color-blue">
-                    <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate" />
-                  </h1>
-                </div>
+                {(responder && responder.constructResponseUri) ? (
+                  <div className={isLogging ? 'display-block' : 'display-none'}>
+                    <h1 className="color-blue">
+                      <span className="glyphicon glyphicon-refresh glyphicon-refresh-animate" />
+                    </h1>
+                  </div>
+                ) : (
+                  <div className="display-block">
+                    <h1 className="color-red">
+                      <span className="glyphicon glyphicon-remove-circle" />
+                      &nbsp;&nbsp; We are unable to log you in at this time
+                    </h1>
+                  </div>
+                )}
                 <div className={succeededLogin ? 'display-block' : 'display-none'}>
                   <h1 className="color-green">
                     <span className="glyphicon glyphicon-ok-circle" />
