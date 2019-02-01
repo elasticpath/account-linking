@@ -22,6 +22,7 @@
 import React from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { loginRegistered } from '../utils/AuthService';
+import { findResponder } from '../responders';
 import './AuthenticationPage.less';
 
 class AuthPage extends React.Component {
@@ -32,18 +33,15 @@ class AuthPage extends React.Component {
   constructor(props) {
     super(props);
     const params = new URLSearchParams(props.location.search);
-    const redirectUri = params.get('redirect_uri');
-    const authState = params.get('state');
     this.state = {
       email: '',
       password: '',
       isLogging: false,
       failedLogin: '',
       succeededLogin: '',
-      redirectUri,
-      authState,
+      params,
     };
-
+    this.state.responder = findResponder(this.state);
     this.setPassword = this.setPassword.bind(this);
     this.setEmail = this.setEmail.bind(this);
     this.login = this.login.bind(this);
@@ -58,9 +56,7 @@ class AuthPage extends React.Component {
   }
 
   login() {
-    const {
-      email, password, redirectUri, authState,
-    } = this.state;
+    const { email, password, responder } = this.state;
 
     this.setState({
       isLogging: true,
@@ -76,7 +72,7 @@ class AuthPage extends React.Component {
           isLogging: false,
         });
         setTimeout(() => {
-          window.location = `${redirectUri}#state=${authState}&access_token=${response}&token_type=Bearer`;
+          window.location = responder.constructResponseUri(this.state, response.json().access_token);
         }, 3000);
       } else if (response.status === 400 || response.status === 401) {
         this.setState({
