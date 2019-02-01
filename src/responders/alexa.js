@@ -19,20 +19,20 @@
  *
  */
 
-const matcher =  /^https:\/\/([A-Za-z0-9])+\.amazon.com\/spa\/skill\/account-linking-status\.html/;
+const matcher = /^https:\/\/([A-Za-z0-9])+\.amazon.com\/spa\/skill\/account-linking-status\.html/;
 
- class AlexaResponder {
-    canRespond(state) {
-        const { params } = state;
-        return params && params.has('redirect_uri') && params.has('state') && matcher.test(params.get('redirect_uri'));
-    }
+class AlexaResponder {
+  static canRespond(state) {
+    const { params } = state;
+    return params && params.has('redirect_uri') && params.has('state') && matcher.test(params.get('redirect_uri'));
+  }
 
-    constructResponseUri(state, token) {
-        const { params } = state;
-        const redirect_uri = params.get('redirect_uri');
-        const aws_state = params.get('state');
-        return `${redirect_uri}#state=${aws_state}&access_token=${token}&token_type=Bearer`
-    }
- }
+  static constructResponseUri(state, token) {
+    const { params } = state;
+    const redirectUri = params.get('redirect_uri');
+    const awsState = params.get('state');
+    return `${redirectUri}#state=${awsState}&access_token=${token}&token_type=Bearer`;
+  }
+}
 
- export default AlexaResponder;
+export default AlexaResponder;

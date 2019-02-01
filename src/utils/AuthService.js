@@ -57,7 +57,7 @@ export function loginRegistered(username, password) {
       },
       body: userFormBodyString,
     }).then((res) => {
-      resolve(res)
+      resolve(res);
     }).catch((error) => {
       // eslint-disable-next-line no-console
       console.error(error.message);

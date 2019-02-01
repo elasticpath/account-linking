@@ -22,7 +22,7 @@
 import React from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { loginRegistered } from '../utils/AuthService';
-import { findResponder } from '../responders';
+import findResponder from '../responders';
 import './AuthenticationPage.less';
 
 class AuthPage extends React.Component {

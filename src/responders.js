@@ -19,18 +19,13 @@
  *
  */
 
-import { AlexaResponder } from './responders/alexa';
+import AlexaResponder from './responders/alexa';
 
 const responders = [
-   new AlexaResponder()
+  new AlexaResponder(),
 ];
 
-
-export function findResponder(params) {
-   for (const responder of responders) {
-       if (responder.canRespond(params)) {
-           return responder;
-       }
-   }
-   return null;
+export default function findResponder(params) {
+  const validResponders = responders.filter(responder => responder.canRespond && responder.canRespond(params));
+  return (validResponders.length > 0) ? validResponders[0] : null;
 }
