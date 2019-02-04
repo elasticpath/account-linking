@@ -19,15 +19,19 @@
  *
  */
 
-import AlexaResponder from './responders/alexa';
-import FacebookChatbotResponder from './responders/facebookchatbot';
+const matcher = /^https:\/\/facebook.com\/messenger_platform\/account_linking/;
 
-const responders = [
-  AlexaResponder,
-  FacebookChatbotResponder,
-];
+class FacebookChatbotResponder {
+  static canRespond(state) {
+    const { params } = state;
+    return params && params.has('redirect_uri') && matcher.test(params.get('redirect_uri'));
+  }
 
-export default function findResponder(params) {
-  const validResponders = responders.filter(responder => responder.canRespond && responder.canRespond(params));
-  return (validResponders.length > 0) ? validResponders[0] : null;
+  static constructResponseUri(state, token) {
+    const { params } = state;
+    const redirectUri = params.get('redirect_uri');
+    return `${redirectUri}&authorization_code=${token}`;
+  }
 }
+
+export default FacebookChatbotResponder;
