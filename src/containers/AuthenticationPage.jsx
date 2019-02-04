@@ -65,7 +65,7 @@ class AuthPage extends React.Component {
     });
 
     loginRegistered(email, password).then((response) => {
-      if (response.status >= 200 && response.status < 300) {
+      if (response.status >= 200 && response.status < 300 && responder && responder.constructResponseUri) {
         this.setState({
           failedLogin: '',
           succeededLogin: 'You successfully logged in!',
