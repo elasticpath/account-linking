@@ -56,13 +56,12 @@ export function loginRegistered(username, password) {
         Authorization: localStorage.getItem(`${Config.cortexApi.scope}_oAuthToken`),
       },
       body: userFormBodyString,
-    }).then((res) => {
-      resolve(res);
-    }).catch((error) => {
-      // eslint-disable-next-line no-console
-      console.error(error.message);
-      reject(error);
-    });
+    }).then(res => resolve(res))
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.error(error.message);
+        reject(error);
+      });
   }));
 }
 

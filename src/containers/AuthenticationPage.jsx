@@ -71,9 +71,11 @@ class AuthPage extends React.Component {
           succeededLogin: 'You successfully logged in!',
           isLogging: false,
         });
-        setTimeout(() => {
-          window.location = responder.constructResponseUri(this.state, response.json().access_token);
-        }, 3000);
+        response.json().then((json) => {
+          setTimeout(() => {
+            window.location = responder.constructResponseUri(this.state, json.access_token);
+          }, 3000);
+        });
       } else if (response.status === 400 || response.status === 401) {
         this.setState({
           failedLogin: 'The email address or the password is incorrect',
