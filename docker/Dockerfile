@@ -3,7 +3,7 @@ FROM node:10.9.0 as builder
 WORKDIR /auth
 
 ARG SCOPE
-ARG CORTEX_URL
+ARG CORTEX_URL=/cortex
 
 ADD ./ /auth
 
