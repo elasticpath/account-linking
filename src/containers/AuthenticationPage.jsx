@@ -25,6 +25,9 @@ import { loginRegistered } from '../utils/AuthService';
 import findResponder from '../responders';
 import './AuthenticationPage.less';
 
+// Debugging
+const Config = require('Config');
+
 class AuthPage extends React.Component {
   static propTypes = {
     location: ReactRouterPropTypes.location.isRequired,
@@ -122,6 +125,9 @@ class AuthPage extends React.Component {
               </div>
               <div className="forgot">
                 <a href="reset.html">Forgot password?</a>
+              </div>
+              <div>
+                {Config.cortexApi.path}
               </div>
               {(responder && responder.constructResponseUri) ? (
                 <button type="submit" className="btn btn-primary" onClick={this.login}>Login</button>
