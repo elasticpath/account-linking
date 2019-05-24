@@ -22,6 +22,7 @@
 import React from 'react';
 import ReactRouterPropTypes from 'react-router-prop-types';
 import { loginRegistered } from '../utils/AuthService';
+import findResponder from '../responders';
 import './AuthenticationPage.less';
 
 class AuthPage extends React.Component {
@@ -32,18 +33,15 @@ class AuthPage extends React.Component {
   constructor(props) {
     super(props);
     const params = new URLSearchParams(props.location.search);
-    const redirectUri = params.get('redirect_uri');
-    const authState = params.get('state');
     this.state = {
       email: '',
       password: '',
       isLogging: false,
       failedLogin: '',
       succeededLogin: '',
-      redirectUri,
-      authState,
+      params,
     };
-
+    this.state.responder = findResponder(this.state);
     this.setPassword = this.setPassword.bind(this);
     this.setEmail = this.setEmail.bind(this);
     this.login = this.login.bind(this);
@@ -58,9 +56,7 @@ class AuthPage extends React.Component {
   }
 
   login() {
-    const {
-      email, password, redirectUri, authState,
-    } = this.state;
+    const { email, password, responder } = this.state;
 
     this.setState({
       isLogging: true,
@@ -69,15 +65,17 @@ class AuthPage extends React.Component {
     });
 
     loginRegistered(email, password).then((response) => {
-      if (response.status >= 200 && response.status < 300) {
+      if (response.status >= 200 && response.status < 300 && responder && responder.constructResponseUri) {
         this.setState({
           failedLogin: '',
           succeededLogin: 'You successfully logged in!',
           isLogging: false,
         });
-        setTimeout(() => {
-          window.location = `${redirectUri}#state=${authState}&access_token=${response}&token_type=Bearer`;
-        }, 3000);
+        response.json().then((json) => {
+          setTimeout(() => {
+            window.location = responder.constructResponseUri(this.state, json.access_token);
+          }, 3000);
+        });
       } else if (response.status === 400 || response.status === 401) {
         this.setState({
           failedLogin: 'The email address or the password is incorrect',
@@ -101,7 +99,12 @@ class AuthPage extends React.Component {
   }
 
   render() {
-    const { isLogging, failedLogin, succeededLogin } = this.state;
+    const {
+      isLogging,
+      failedLogin,
+      succeededLogin,
+      responder,
+    } = this.state;
     return (
       <div className="col-md-12 col-lg-8 offset-lg-2 col-xl-6 offset-xl-3">
         <div className="facebook-auth-form">
@@ -120,7 +123,16 @@ class AuthPage extends React.Component {
               <div className="forgot">
                 <a href="reset.html">Forgot password?</a>
               </div>
-              <button type="submit" className="btn btn-primary" onClick={this.login}>Login</button>
+              {(responder && responder.constructResponseUri) ? (
+                <button type="submit" className="btn btn-primary" onClick={this.login}>Login</button>
+              ) : (
+                <div className="display-block">
+                  <h1 className="color-red">
+                    <span className="glyphicon glyphicon-remove-circle" />
+                    &nbsp;&nbsp; We are unable to log you in at this time
+                  </h1>
+                </div>
+              )}
               <div className="panel margin-top-30">
                 <div className={isLogging ? 'display-block' : 'display-none'}>
                   <h1 className="color-blue">

@@ -30,7 +30,6 @@ const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
 });
 
 const WorkboxPlugin = require('workbox-webpack-plugin');
-const WebpackPwaManifest = require('webpack-pwa-manifest');
 const AppCachePlugin = require('appcache-webpack-plugin');
 const epConfig = require('../src/ep.config.json');
 
