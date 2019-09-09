@@ -2,7 +2,7 @@
 
 ### Documentation
 
-- [Reference Experiences - Login Server Documentation](https://documentation.elasticpath.com/chatbot/docs/login-server.html)
+- [Reference Experiences - Login Server Documentation](https://documentation.elasticpath.com/chatbot/docs/facebook-chat/login-server.html)
 
 ## Terms And Conditions
 
