@@ -40,7 +40,7 @@ const Root = () => [
 
 const App = withRouter(Root);
 const AppWithRouter = () => (
-  <Router basename="/auth/">
+  <Router basename="/">
     <App />
   </Router>
 );
