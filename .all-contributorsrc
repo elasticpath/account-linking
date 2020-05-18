@@ -1,0 +1,42 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "maennis-ep",
+      "name": "Mark Ennis",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/25517396?v=4",
+      "profile": "https://github.com/maennis-ep",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "shaunmaharaj",
+      "name": "Shaun Maharaj",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/39800563?v=4",
+      "profile": "https://github.com/shaunmaharaj",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "mwan-ep",
+      "name": "Michelle Wan",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/54115904?v=4",
+      "profile": "https://github.com/mwan-ep",
+      "contributions": [
+        "code"
+      ]
+    },
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "account-linking",
+  "projectOwner": "elasticpath",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
