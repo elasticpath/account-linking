@@ -22,7 +22,7 @@
     "react-router-dom": "^4.2.2",
     "react-router-prop-types": "^1.0.4",
     "react-routing": "0.0.7",
-    "react-scripts": "^1.1.4",
+    "react-scripts": "^5.0.1",
     "workbox-webpack-plugin": "^3.6.3"
   },
   "scripts": {
@@ -49,7 +49,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.10.0",
     "file-loader": "^1.1.11",
-    "html-webpack-plugin": "^3.2.0",
+    "html-webpack-plugin": "^5.5.0",
     "json-loader": "^0.5.7",
     "less": "3.8.1",
     "less-loader": "4.1.0",
